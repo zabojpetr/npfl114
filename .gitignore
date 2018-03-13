@@ -2,3 +2,4 @@
 **/.idea
 **/mnist_data
 *.gz
+**/gym_cartpole
