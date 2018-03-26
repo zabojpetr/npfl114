@@ -62,7 +62,7 @@ class Dataset:
         batch_windows_onehot = np.zeros([len(permutation), (2*self._window + 1) * len(self._alphabet)])
 
         for i in range(0, 2 * self._window + 1):
-            batch_windows_onehot[:,i*(len(self._alphabet)):(i+1)*(len(self._alphabet))] = \\
+            batch_windows_onehot[:,i*(len(self._alphabet)):(i+1)*(len(self._alphabet))] = \
                 np.apply_along_axis(lambda x: np.bincount(x, minlength=len(self._alphabet)), axis=1, arr=batch_windows[:,i].reshape(-1,1))
         return batch_windows_onehot, self._labels[permutation]
 
