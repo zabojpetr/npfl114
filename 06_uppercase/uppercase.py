@@ -173,7 +173,7 @@ if __name__ == "__main__":
     args.logdir = "logs/{}-{}-{}".format(
         os.path.basename(__file__),
         datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S"),
-        ",".join(("{}={}".format(re.sub("(.)[^_]*_?", r"\\1", key), value) for key, value in sorted(vars(args).items())))
+        ",".join(("{}={}".format(re.sub("(.)[^_]*_?", r"\1", key), value) for key, value in sorted(vars(args).items())))
     )
     if not os.path.exists("logs"): os.mkdir("logs") # TF 1.6 will do this by itself
 
