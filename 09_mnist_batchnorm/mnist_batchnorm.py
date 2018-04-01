@@ -58,7 +58,6 @@ class Network:
             global_step = tf.train.create_global_step()
 
             update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
-            # print(update_ops)
             with tf.control_dependencies(update_ops):
                 self.training = tf.train.AdamOptimizer().minimize(loss, global_step=global_step, name="training")
 
