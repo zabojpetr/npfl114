@@ -1,5 +1,13 @@
 **/logs
 **/.idea
 **/mnist_data
-*.gz
 **/gym_cartpole
+
+*test*
+*best*
+
+*.tgz
+*.npz
+*.gz
+
+*.png

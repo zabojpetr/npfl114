@@ -11,8 +11,11 @@ class Network:
         # Create an empty graph and a session
         graph = tf.Graph()
         graph.seed = seed
-        self.session = tf.Session(graph = graph, config=tf.ConfigProto(inter_op_parallelism_threads=threads,
-                                                                       intra_op_parallelism_threads=threads))
+        config = tf.ConfigProto(inter_op_parallelism_threads=threads,
+                                                                       intra_op_parallelism_threads=threads)
+        config.gpu_options.allocator_type = 'BFC'
+        config.gpu_options.allow_growth = True
+        self.session = tf.Session(graph = graph, config=config)
 
     def construct(self, args):
         with self.session.graph.as_default():
@@ -123,7 +126,7 @@ if __name__ == "__main__":
     # - M-kernel_size-stride:
     # - F: Flatten inputs
     # - R-hidden_layer_size: Add a dense layer with ReLU activation and specified size. Ex: R-100
-    # cnn = "CB-10-3-1-same,CB-10-3-1-same,M-3-2,CB-10-3-1-same,CB-10-3-1-same,M-3-2,F,R-100,R-100"
+    cnn = "CB-10-3-1-same,CB-10-3-1-same,M-3-2,CB-10-3-1-same,CB-10-3-1-same,M-3-2,F,R-100,R-100"
 
 
 
@@ -192,7 +195,11 @@ if __name__ == "__main__":
             images, labels = mnist.train.next_batch(args.batch_size)
             network.train(images, labels)
 
-        network.evaluate("dev", mnist.validation.images, mnist.validation.labels)
+        ve = mnist.validation.epochs_completed
+        while mnist.validation.epochs_completed == ve:
+            images, labels = mnist.validation.next_batch(100)
+            network.evaluate("dev", images, labels)
+        #network.evaluate("dev", mnist.validation.images, mnist.validation.labels)
 
     # TODO: Compute test_labels, as numbers 0-9, corresponding to mnist.test.images
     test_labels = network.predict("test", mnist.test.images)
