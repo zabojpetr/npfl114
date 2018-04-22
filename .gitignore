@@ -2,6 +2,8 @@
 **/.idea
 **/mnist_data
 **/gym_cartpole
+**/finetuning
+**/nasnet
 
 *test*
 *best*
@@ -9,5 +11,13 @@
 *.tgz
 *.npz
 *.gz
+*.zip
 
 *.png
+*.txt
+*.README
+
+*.meta
+*.index
+*.data*
+checkpoint
