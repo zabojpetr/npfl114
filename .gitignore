@@ -1,5 +1,6 @@
 **/logs
 **/.idea
+**/__pycache__
 **/mnist_data
 **/gym_cartpole
 **/finetuning
@@ -16,6 +17,7 @@
 *.png
 *.txt
 *.README
+*.LICENSE
 
 *.meta
 *.index
